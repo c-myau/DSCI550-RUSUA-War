@@ -5,12 +5,8 @@ import sys
 import pandas as pd
 import clustering as c
 
-def import_csv(directory_path, file=None):
-    if file:
-        df = pd.read_csv(f"{directory_path}/{file}", lineterminator='\n')
-    else:
-        for filename in os.listdir(directory_path):
-            df = pd.read_csv(f"{directory_path}/{filename}", lineterminator='\n')
+def import_csv(directory_path="/UkraineWarSampled", file="/UkraineWarSampled_0.csv"):
+    df = pd.read_csv(f"{directory_path}/{file}", lineterminator='\n')
     return df
 
 def execute(directory_path: str, N: int, M: int, L: int):
@@ -31,4 +27,3 @@ if __name__ == "__main__":
     L = sys.argv[4]
 
     output = execute(directory_path, int(N), int(M), int(L))
-    print(output)
