@@ -27,10 +27,17 @@ def weighted_sample(d:dict, sample_size:int, avg_len:int, random_state:int=None)
         df_list.append(d[key].sample(int(float(len(d[key]) / avg_len) * float(len(d[key]) / avg_len) * sample_size) ,random_state=random_state))
     return pd.concat(df_list)
 
-def execute(directory_path: str, export_path: str, sample_size: int=100, runs: int=1, random_state:int=None, write=True):
+def sample(d:dict, sample_size:int, avg_len:int, random_state:int=None):
+    df_list = []
+    for key in d.keys():
+        print(float(len(d[key]) / avg_len) * float(len(d[key]) / avg_len) * sample_size )
+        df_list.append(d[key].sample(int(len(d[key]) / avg_len),random_state=random_state))
+    return pd.concat(df_list)
+
+def execute(directory_path: str=, export_path: str, sample_size: int=100, runs: int=1, random_state:int=None, write=True):
     [data_full, avg_len] = csv_reader(directory_path)
     for i in range(runs):
-        data_sampled_combined = weighted_sample(data_full, sample_size, avg_len, random_state)
+        data_sampled_combined = sample(data_full, sample_size, avg_len, random_state)
         if write:
             data_sampled_combined.to_csv(f"{export_path}/UkraineWarSampled_{i}.csv")
 
