@@ -6,7 +6,7 @@ import regex as re
 import CleaningFunctions.csv_locality as cl
 import CleaningFunctions.csv_vader as cv
 
-def read(path="UkraineWar/0905_UkraineCombinedTweetsDeduped.csv"):
+def read(path="UkraineWar/0906_UkraineCombinedTweetsDeduped.csv"):
     return pd.read_csv(path,lineterminator='\n')
 
 def execute(func:[]):
@@ -16,7 +16,7 @@ def execute(func:[]):
             df = cl.engineer(df)
         if feature == "Sentiment":
             df = cv.engineer(df)
-    df.to_csv("UkraineWarCombined/export2.csv")
+    df.to_csv("UkraineWarCombined/export.csv")
 
 if __name__ == "__main__":
     execute(["Local", "Sentiment"])
