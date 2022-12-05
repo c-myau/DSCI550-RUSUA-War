@@ -25,7 +25,7 @@ def csv_reader(directory_path:str="/UkraineWar", fileno="0906"):
         df = df[df["compound"] != 0]
         new_df = pd.to_datetime(df['tweetcreatedts'], infer_datetime_format=True).astype(int) / 10**9
         df = pd.concat([df[['compound']],new_df], axis=1)
-        df["tweetcreatedts"] = (df["tweetcreatedts"] - 1662447600) / 20000 # normalize timestamp
+        df["tweetcreatedts"] = (df["tweetcreatedts"] - 1662447600) / 25000 # normalize timestamp
 
         if SCAN:
             sns.scatterplot(data=df, x="tweetcreatedts", y="compound")
@@ -51,8 +51,11 @@ def csv_reader(directory_path:str="/UkraineWar", fileno="0906"):
             cluster_colors = [sns.desaturate(palette[col], sat)
                               if col >= 0 else (0.5, 0.5, 0.5) for col, sat in
                               zip(clusterer.labels_, clusterer.probabilities_)]
+            df['cluster'] = clusterer.labels_
             sns.scatterplot(data=df, x="tweetcreatedts", y="compound", c=cluster_colors)
             plt.show()
+            df.to_csv("UkraineWarClustered/export.csv")
+
             # if PLOT:
 
 if __name__ == "__main__":
