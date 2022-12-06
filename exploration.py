@@ -56,7 +56,5 @@ def csv_reader(directory_path:str="/UkraineWar", fileno="0906"):
             plt.show()
             df.to_csv("UkraineWarClustered/export.csv")
 
-            # if PLOT:
-
 if __name__ == "__main__":
     csv_reader()
